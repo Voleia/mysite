@@ -203,7 +203,7 @@
         */
 
         .msbtn {
-            border-radius: 16px;
+            border-radius: 4px;
             padding-top: 3px;
             padding-bottom: 3px;
             padding-right: 6px;
@@ -211,7 +211,7 @@
             color: white;
             font-weight: normal;
             background-color: rgba(17, 170, 204, 0.3);
-            border: solid rgb(202, 202, 202) 2px;
+            /*border: solid rgb(202, 202, 202) 2px;*/
             line-height: 30px;
         }
 
@@ -226,7 +226,7 @@
         }
 
         .redmsbtn {
-            border-radius: 16px;
+            border-radius: 4px;
             padding-top: 3px;
             padding-bottom: 3px;
             padding-right: 6px;
@@ -234,7 +234,7 @@
             color: white;
             font-weight: normal;
             background-color: rgba(221, 83, 109, 0.3);
-            border: solid rgb(202, 202, 202) 2px;
+            /*border: solid rgb(202, 202, 202) 2px;*/
         }
 
         .redmsbtn:hover {
@@ -252,8 +252,8 @@
             padding: 10px 30px;
             color: white;
             background-color: rgba(17, 170, 204, 0.3);
-            border: 4px solid white;
-            border-radius: 30px;
+            border: 2px solid white;
+            border-radius: 12px;
             max-width: 100%;
             white-space: nowrap;
         }
@@ -541,13 +541,13 @@
                 <h1 style="height:100%;padding:0px;margin:0px;display:inline-block;">Projects</h1>
 
                 <span style="font-family:lexend">
-                    <a style="margin-left:5px;margin-right:5px" id="passionbtn" class="msbtn hoverable" title="Click to highlight passion projects"
+                    <a draggable="true" style="margin-left:45px;margin-right:18px" id="passionbtn" class="msbtn hoverable" title="Click to highlight passion projects"
                         onclick="highlightElements('.p_passion', '#passionbtn')">Personal</a>
-                    <a style="margin-left:5px;margin-right:5px" id="schoolbtn" class="msbtn hoverable" title="Click to highlight school/camp projects"
+                    <a draggable="true" style="margin-left:18px;margin-right:18px" id="schoolbtn" class="msbtn hoverable" title="Click to highlight school/camp projects"
                         onclick="highlightElements('.p_school', '#schoolbtn')">Collaborative</a>
-                    <a style="margin-left:5px;margin-right:5px" id="volunbtn" class="msbtn hoverable" title="Click to highlight volunteered projects"
+                    <a draggable="true" style="margin-left:18px;margin-right:18px" id="volunbtn" class="msbtn hoverable" title="Click to highlight volunteered projects"
                         onclick="highlightElements('.p_volunteer', '#volunbtn')">Published</a>
-                    <a style="margin-left:5px;margin-right:5px" id="impbtn" class="msbtn hoverable" title="Click to highlight sentimental projects"
+                    <a draggable="true"  style="margin-left:18px;margin-right:18px" id="impbtn" class="msbtn hoverable" title="Click to highlight sentimental projects"
                         onclick="highlightElements('.p_impbtn', '#impbtn')">Sentimental</a>
                 </span>
             </div>
