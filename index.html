@@ -79,7 +79,7 @@
         }
 
         .agiyabox {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('Agiya.png');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://i.imgur.com/AJkVAr7.png');
             background-size: cover;
         }
 
@@ -364,8 +364,12 @@
                 display: none;
             }
 
-            .sectionheader a {
-                display: none;
+            .buttonedSectionHeader {
+                display:flex;
+                align-items:center;
+            }
+            .buttonedSectionHeader a {
+                font-family: "Lexend", "Roboto", sans-serif;
             }
 
             .commentline {
@@ -386,6 +390,11 @@
                 display: none;
             }
 
+                        .buttonedSectionHeader {
+                display: none;
+            }
+
+
             .popup-content {
                 width: 50%;
             }
@@ -397,14 +406,14 @@
                 display: none;
             }
 
-            .sectionheader a {
+            /*.sectionheader a {
                 font-weight: bold;
                 float: right;
                 color: white;
                 padding-right: 16px;
                 font-size: 1.25rem;
                 padding-top: 6px;
-            }
+            }*/
 
             .sidebar a {
                 float: left;
@@ -430,6 +439,10 @@
             .hideonmobile {
                 display: none;
             }
+            
+            .buttonedSectionHeader {
+                display: none;
+            }
 
             .sidebar a {
                 text-align: center;
@@ -443,6 +456,10 @@
             .sectionheader {
                 text-align: center;
                 padding-left: 0;
+            }
+
+            .sectionheader h1 {
+                text-align: center;
             }
 
             .sidebar {
@@ -476,7 +493,7 @@
     </style>
 
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap">
@@ -501,8 +518,6 @@
             <a class="menu" href="#about">About Me</a>
             <a class="menu" href="#nav">Project List</a>
             <a title="Stuff I'm working on today" class="menu" href="#new">Ongoing 2024</a>
-            <a title="When I got more serious about programming" class="menu" href="#lockdowns">2021-2024</a>
-            <a title="Amateur Programming Projects" class="menu" href="#original">Before 2021</a>
         </div>
     </div>
 
@@ -513,40 +528,56 @@
                 <div class="textbox">
                     <center>
                         <h1>About Me</h1>
-                        <p style="font-size:large">Hi! I'm Avery. I'm a high-school senior living in Delaware. In my free
-                            time, I love to code little projects- It's my creative outlet, and I just enjoy doing it!
-                            So, I made this page just to show a record of some of the coding creations that I've learned
-                            from in the process of making</p>
+                        <p style="font-size:large">Hi! I'm Avery. 
                         <p class="hideonmobile">&nbsp;</p>
                         <p style="font-size:large">I started teaching myself to code through YouTube when I was about 9,
-                            initially to code <a onclick="openPluginPopup()">plugins</a> for my <a
-                                onclick="openServerPopup()">Minecraft server</a>. Since then, I've kept learning and
-                            begun working on some projects of my own! I'm not the best at a-lot of visual art, so this
-                            is how I can create, be creative and solve problems.</p>
+                            initially to code <a onclick="openPluginPopup()">plugins</a> for my</p>
                     </center>
                 </div>
             </div>
         </div>
         <div class="supersec" id="nav">
-            <h1 class="sectionheader">Project List</h1>
-            <div class="section" style="background-color:rgb(12 12 12);color:rgb(235 235 235);">
-                <hp><span class="red">NOTE TO READER:</span> This page only includes projects that involved me actually researching and learning new
-                    things. There are a-lot of smaller projects and scripts which are quite small in scale or didn't
-                    really involve new concepts. </br></br>Click <span class="bolder red">red</span> or <span class="bolder blue">blue</span> text to scroll to a category or view the definition of a phrase.
-                </p>
+            <div class="sectionheader buttonedSectionHeader">
+                <h1 style="height:100%;padding:0px;margin:0px;display:inline-block;">Projects</h1>
 
-                <h2>Highlight Categories <span style="font-size:0.9375rem;color:grey">Click button to highlight
+                <span style="font-family:lexend">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <a id="passionbtn" class="msbtn hoverable" title="Click to highlight passion projects"
+                        onclick="highlightElements('.p_passion', '#passionbtn')">Personal Projects</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <a id="schoolbtn" class="msbtn hoverable" title="Click to highlight school/camp projects"
+                        onclick="highlightElements('.p_school', '#schoolbtn')">Team & School Things</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <a id="volunbtn" class="msbtn hoverable" title="Click to highlight volunteered projects"
+                        onclick="highlightElements('.p_volunteer', '#volunbtn')">Personal Published Projects</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <a id="impbtn" class="msbtn hoverable" title="Click to highlight sentimental projects"
+                        onclick="highlightElements('.p_impbtn', '#impbtn')">Sentimental</a>
+                </span>
+            </div>
+            <h1 class="sectionheader hideonpc">Projects</h1>
+            <div class="section" style="background-color:rgb(12 12 12);color:rgb(235 235 235);">
+
+                <div class="hideonpc">
+                <h2>Highlight Categories <span style="font-size:0.9375rem;color:grey;display:inline-block;">Click a button to highlight a
                         category.</span></h2>
                 <p><a id="passionbtn" class="msbtn hoverable" title="Click to highlight passion projects"
-                        onclick="highlightElements('.p_passion', '#passionbtn')">Passion & Personal Projects</a> </p>
+                        onclick="highlightElements('.p_passion', '#passionbtn')">Personal Projects</a> </p>
                 <p><a id="schoolbtn" class="msbtn hoverable" title="Click to highlight school/camp projects"
-                        onclick="highlightElements('.p_school', '#schoolbtn')">School & Camp Projects</a></p>
+                        onclick="highlightElements('.p_school', '#schoolbtn')">Team & School Things</a></p>
                 <p><a id="volunbtn" class="msbtn hoverable" title="Click to highlight volunteered projects"
-                        onclick="highlightElements('.p_volunteer', '#volunbtn')">Volunteered Projects</a></p>
+                        onclick="highlightElements('.p_volunteer', '#volunbtn')">Personal Published Projects</a></p>
                 <p><a id="impbtn" class="msbtn hoverable" title="Click to highlight sentimental projects"
-                        onclick="highlightElements('.p_impbtn', '#impbtn')">Projects Most Important to Me</a></p>
+                        onclick="highlightElements('.p_impbtn', '#impbtn')">Sentimental</a></p>
                 <p>&nbsp;</p>
+                </div>
+ 
 
+                <p>Click <span class="bolder red">red</span> or <span class="bolder blue">blue</span> text to scroll to a category</p>
                 <h2>Ongoing 2024</h2>
                 <div>
                     <ul class="fa-ul">
@@ -617,360 +648,28 @@
                 <center>
                     <div class="widetextbox" style="display:inline-block;" id="legsolII">
                         <div class="coll">
-                            <h1>Legacy of Solaris<h3 style="color:gray;margin-top:-15px;">Passion Project, 2024</h3>
+                            <h1>Project Name<h3 style="color:gray;margin-top:-15px;">Type, Date</h3>
                             </h1>
                             <iframe class="youtubevideo"
-                                src="https://www.youtube.com/embed/3p7dU9ctCok?si=IQZPoQYX0tBQzqZy"
+                                src=""
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
                             <center>
                                 <a class="btn" target="_blank"
-                                    href="https://github.com/Voleia/me/tree/main/Partial_LegacyOfSolaris/Campaign">View
-                                    Source Code</a>
+                                    href="#">Source Button</a>
                                 <p>&nbsp;</p>
-                                <p style="text-size:0.5rem;color:gray">Made with <a onclick="openUnityPopup()">Unity
-                                        (C#)</a></p>
+                                <p style="text-size:0.5rem;color:gray">More Info</a></p>
                             </center>
 
                         </div>
                         <div class="colr">
-                            <h1>About the Project<h3 style="color:gray;margin-top:-15px;">The content of the project
-                                </h3>
-                            </h1>
-                            <p>The project is a <a
-                                    onclick="openPopup('Grand Strategy', 'A subgenre of strategy where players control the economy and diplomacy of a whole country, and move around military units on a national level from a godlike position.')">grand
-                                    strategy</a> game, inspired by games like <a
-                                    onclick="openPopup('Crusader Kings', 'A game franchise by Paradox Interactive about strengthening your feudal dynasty')">Crusader
-                                    Kings</a> and <a
-                                    onclick="openPopup('Mount & Blade', 'A game by Taleworlds in which you control a warband, conquering settlements through first personal medieval battles')">Mount
-                                    & Blade</a>. It's based on the <a onclick="openGeopolPopup()">political</a>
-                                situation of <a onclick="openAsheaPopup()">Ashea</a>, a fantasy server that I help
-                                develop, as it was in mid 2023.</p>
-                            <p>Basically, players choose a country to lead, and then can develop buildings in that
-                                country, engage in diplomacy with other nations, and go to war. That said, it's VERY far
-                                from complete. Most of what I've done is backend coding, which makes it hard to display,
-                                and I've slowed down a bit to work on college applications.</p>
+                            <h1>Right Column<h3 style="color:gray;margin-top:-15px;">Tagline</h3></h1>
+                            <p>Project Description, <a onclick="getPopup('test')">popup btn</a></p>
                         </div>
                         <div class="colm">
-                            <h1>Project Creation<h3 style="color:gray;margin-top:-15px;">Why I created it / what I
-                                    learned</h3>
-                            </h1>
-                            <p>I love the <a
-                                    onclick="openPopup('Grand Strategy', 'A subgenre of strategy where players control the economy and diplomacy of a whole country, and move around military units on a national level from a godlike position.')">Grand
-                                    Strategy</a> genre of games, so naturally I've always wanted to make my own. It's
-                                not my dream project, but it's one I'm definitely passionate about. I started making
-                                this at summer camp, but after I went home I decided to move this to <a
-                                    onclick="openUnityPopup()">Unity</a> so I could write it in <a
-                                    onclick="openCSharpPopup()">C#</a>.</p>
-                            <p>I think one of the biggest things I learned was about how to design intricate systems of
-                                information that all rely on eachother, and rely on input from both the player and the
-                                AI. This was the first project I've made that involes AI and complex logistics in the
-                                same project, although the AI isn't super developed yet.</p>
-                        </div>
-                    </div>
-
-                    <div class="widetextbox" style="display:inline-block;" id="races">
-                        <div class="coll">
-                            <h1>Ashea Fantasy Races<h3 style="color:gray;margin-top:-15px;">Volunteered Project, 2022-24
-                                </h3>
-                            </h1>
-                            <iframe class="youtubevideo"
-                                src="https://www.youtube.com/embed/Exw5V9za8wQ?si=hEzK32Z2_tZj8owd"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
-                            <center>
-                                <a class="btn" target="_blank"
-                                    href="https://github.com/Voleia/me/tree/main/Partial_RacesProject">View Source
-                                    Code</a>
-                                <p>&nbsp;</p>
-                                <p style="text-size:0.5rem;color:gray">Made in Java</p>
-                            </center>
-                        </div>
-                        <div class="colr">
-                            <h1>About the Project<h3 style="color:gray;margin-top:-15px;">The content of the project
-                                </h3>
-                            </h1>
-                            <p>This project is a <a onclick="openPluginPopup()">plugin</a> for <a
-                                    onclick="openServerPopup()">Minecraft Multiplayer</a> that both adds
-                                tolkien-esque fantasy species that players can play as, and stores players' ingame
-                                characters. Each species has unique abilities.</p>
-                        </div>
-                        <div class="colm">
-                            <h1>Project Creation<h3 style="color:gray;margin-top:-15px;">Why I created it / what I
-                                    learned</h3>
-                            </h1>
-                            <p>This project is probably the 2nd most complicated thing I've made. It was made to enhance
-                                the roleplay aspect of the game. It has been continously developed and changed over the
-                                past 2 years.</p>
-                            <p>This project also involved a few other team members who did artwork. From this project, I
-                                learned a lot about storing/working with data and how to optimize operations for
-                                performance. This was also the first project that I used interfaces for. </p>
-                        </div>
-                    </div>
-                </center>
-            </div>
-        </div>
-        <div class="reda supersec" id="lockdowns">
-            <h1 class="sectionheader">2021-2024</h1>
-            <div class="section" style="background-color:rgb(12 12 12);color:rgb(235 235 235);">
-                <center>
-                    <div class="widetextbox" style="display:inline-block;" id="legsol">
-                        <div class="coll">
-                            <h1>Solaris V1<h3 style="color:gray;margin-top:-15px;">Summer Camp Project, 2024</h3>
-                            </h1>
-                            <iframe class="youtubevideo"
-                                src="https://www.youtube.com/embed/IXF490j4xZY?si=XqI1FSdKcHsiftRo"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
-                            <center>
-                                <p style="text-size:0.5rem;color:gray">Made with <a
-                                        onclick="openPopup('Unreal Engine 5', 'A fairly heavy game-engine more intensive or high-graphics games than <a onclick=\'openUnityPopup()\'>Unity</a>')">UE5</a>
-                                </p>
-                            </center>
-
-                        </div>
-                        <div class="colr">
-                            <h1>About the Project<h3 style="color:gray;margin-top:-15px;">The content of the project
-                                </h3>
-                            </h1>
-                            <p>This project was the initial version of the later <a class="blue" href="#legsolII">Legacy
-                                    of Solaris</a>, before I got home from camp and switched to <a
-                                    onclick="openUnityPopup()">Unity</a></p>
-                            <p>The project is a <a
-                                    onclick="openPopup('Grand Strategy', 'A subgenre of strategy where players control the economy and diplomacy of a whole country, and move around military units on a national level from a godlike position.')">grand
-                                    strategy</a> game, inspired by games like <a
-                                    onclick="openPopup('Crusader Kings', 'A game franchise by Paradox Interactive about strengthening your feudal dynasty')">Crusader
-                                    Kings</a> and <a
-                                    onclick="openPopup('Mount & Blade', 'A game by Taleworlds in which you control a warband, conquering settlements through first personal medieval battles')">Mount
-                                    & Blade</a>. It's based on the <a onclick="openGeopolPopup()">political
-                                    situation</a> of <a onclick="openAsheaPopup()">Ashea</a>, a fantasy server that I
-                                help develop, as it
-                                was in mid 2023.</p>
-                        </div>
-                        <div class="colm">
-                            <h1>Project Creation<h3 style="color:gray;margin-top:-15px;">Why I created it / what I
-                                    learned</h3>
-                            </h1>
-                            <p>I made this during a two-week game design camp last summer. It was a really cool
-                                experience to be able to really work with other people to make things come to life, and
-                                to just talk to some of the people there.</p>
-                        </div>
-                    </div>
-
-                    <div class="widetextbox" style="display:inline-block;" id="nolenopoII">
-                        <div class="coll">
-                            <h1>Nolenopo 2D<h3 style="color:gray;margin-top:-15px;">School Project, 2022</h3>
-                            </h1>
-                            <iframe class="youtubevideo"
-                                src="https://www.youtube.com/embed/8UUJkWXRzF0?si=8q-WyvuCNaQxiZXa"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
-                            <center>
-                                <a class="btn" target="_blank" href="https://openprocessing.org/sketch/1539966">View in
-                                    OpenProcessing</a>
-                                <p>&nbsp;</p>
-                                <p style="text-size:0.5rem;color:gray">Made in Javascript</p>
-                            </center>
-                        </div>
-                        <div class="colr">
-                            <h1>About the Project<h3 style="color:gray;margin-top:-15px;">The content of the project
-                                </h3>
-                            </h1>
-                            <p>A small blocky world is generated with a few natural features: a random terrain; trees
-                                and rocks; forest, plains, and "purple" biomes. Zombies spawn on the map, especially in
-                                the purple biome, and the player survives as long as they can. The player can build
-                                defenses with collected blocks.</p>
-                        </div>
-                        <div class="colm">
-                            <h1>Project Creation<h3 style="color:gray;margin-top:-15px;">Why I created it / what I
-                                    learned</h3>
-                            </h1>
-                            <p>This was my final project for Freshman year computer science. It's pretty small with only
-                                1330 lines, but I spent a couple weeks making it.</p>
-                            <p>This was really the first game I made without a <a
-                                    onclick="openPopup('Game Engine', 'A piece of software that facilitates game creation by providing tools such as visual renderers, prebuilt collision engines and other scripts, etc. Used in most games')">game
-                                    engine</a>. I learned about how to optimize programs and use visual tricks. The code
-                                is very rudimentary, but it was decent for a freshman project.</p>
-                        </div>
-                    </div>
-
-                    <div class="widetextbox" style="display:inline-block;" id="ashwar">
-                        <div class="coll">
-                            <h1>Ashea War System<h3 style="color:gray;margin-top:-15px;">Volunteered Project, 2023</h3>
-                            </h1>
-                            <center>
-                                <p>No video sadly :(</p>
-                                <p>&nbsp;</p>
-                                <a class="btn" target="_blank"
-                                    href="https://github.com/Voleia/me/tree/main/Partial_WarSystem">View Source Code</a>
-                                <p>&nbsp;</p>
-                                <p style="text-size:0.5rem;color:gray">Made in Java</p>
-                            </center>
-                        </div>
-                        <div class="colr">
-                            <h1>About the Project<h3 style="color:gray;margin-top:-15px;">The content of the project
-                                </h3>
-                            </h1>
-                            <p>A <a onclick="openPluginPopup()">plugin</a> for <a
-                                    onclick="openMinecraftPopup()">Minecraft</a> that adds "war" to the game: Players
-                                can occupy certain territories to gain points, and the rate of point gain increase
-                                dynamically as time progresses and kills increase. It also limits destruction and
-                                friendly fire during the battle.</p>
-                        </div>
-                        <div class="colm">
-                            <h1>Project Creation<h3 style="color:gray;margin-top:-15px;">Why I created it / what I
-                                    learned</h3>
-                            </h1>
-                            <p>This was made for <a onclick="openAsheaPopup()">Ashea</a>, a minecraft <a
-                                    onclick="openGeopolPopup()">geopolitical server</a> I help develop, to replace a
-                                third-party warfare <a onclick="openPluginPopup()">plugin</a> that just didn't work as
-                                well.</p>
-                            <p>The coding of the <a onclick="openPluginPopup()">plugin</a> itself was fairly simple, but
-                                the process of organizing testers, meeting deadlines, and bugfixing this project was
-                                a-lot more difficult. It taught me a lot about teamwork and time management.</p>
-                        </div>
-                    </div>
-
-                    <div class="widetextbox" style="display:inline-block;" id="asharm">
-                        <div class="coll">
-                            <h1>Zombie Armies<h3 style="color:gray;margin-top:-15px;">Personal Project, 2022</h3>
-                            </h1>
-                            <iframe class="youtubevideo"
-                                src="https://www.youtube.com/embed/GD2VOowTqVk?si=BWe_zn2JkG1pp7Kk"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                            <center>
-                                <p style="text-size:0.5rem;color:gray">Made in Java</p>
-                            </center>
-                        </div>
-                        <div class="colr"> <!--Project Content-->
-                            <h1>About the Project<h3 style="color:gray;margin-top:-15px;">The content of the project
-                                </h3>
-                            </h1>
-                            <p>This was a <a onclick="openPluginPopup()">minecraft plugin</a> I made which modified the
-                                behavior of the zombies in the base-game to fight on behalf of players in line
-                                formations.</p>
-                        </div>
-                        <div class="colm"> <!--Project Context (When I made it, why I made it, )-->
-                            <h1>Project Creation<h3 style="color:gray;margin-top:-15px;">Why I created it / what I
-                                    learned</h3>
-                            </h1>
-                            <p>This was my first significant attempt at making an "AI" of any kind, which definitely
-                                took the bulk of my
-                                time. I spent a few months working on this project, and was made for me and 3 other
-                                friends to fight "wars" without involving other people.</p>
-                        </div>
-                    </div>
-                </center>
-            </div>
-        </div>
-        <div class="reda supersec" id="original">
-            <h1 class="sectionheader">Before 2021</h1>
-            <div class="section" style="background-color:rgb(12 12 12);color:rgb(235 235 235);">
-                <center>
-                    <div class="widetextbox" style="display:inline-block;" id="nolenopo">
-                        <div class="coll">
-                            <h1>Nolenopo I<h3 style="color:gray;margin-top:-15px;">Passion Project, 2020</h3>
-                            </h1>
-                            <iframe class="youtubevideo"
-                                src="https://www.youtube.com/embed/3h-BGZOJ868?si=dY2ucwGphnoYDVMf"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
-                            <center>
-                                <p style="text-size:0.5rem;color:gray">Made with <a onclick="openUnityPopup()">Unity
-                                        (C#)</a></p>
-                            </center>
-
-                        </div>
-                        <div class="colr">
-                            <h1>About the Project<h3 style="color:gray;margin-top:-15px;">The content of the project
-                                </h3>
-                            </h1>
-                            <p>The game itself was fairly simple: There were five levels. Each level had zombies trying
-                                to kill you, and you had to escape them for a
-                                certain amount of time to win. You could buy items with coins you got from completing
-                                levels. I also started adding a multiplayer mode, but never finished it.</p>
-                        </div>
-                        <div class="colm">
-                            <h1>Project Creation<h3 style="color:gray;margin-top:-15px;">Why I created it / what I
-                                    learned</h3>
-                            </h1>
-                            <p>I made this early on in the COVID lockdowns. Though very rudimentary, it was the first
-                                time I ever truly tried to make a game. It was also the first project I showed off to
-                                others. It holds a very sentimental place in my heart</p>
-                            <p>As my first standalone project, I learned a decent amount about simply what works and
-                                what doesen't in game design and programming. The code itself was horrid, but through
-                                that I learned how NOT to do it in the future. I learned a bit more about how
-                                multiplayer games work, and I was very proud that my friends all loved the game.</p>
-                        </div>
-                    </div>
-
-                    <div class="widetextbox" style="display:inline-block;" id="legsolII">
-                        <div class="coll">
-                            <h1>Mine World<h3 style="color:gray;margin-top:-15px;">Passion Project, 2020</h3>
-                            </h1>
-                            <center>
-                                <iframe class="youtubevideo"
-                                    src="https://www.youtube.com/embed/lTtdE1I0d_4?si=4eaOVQR8j8Z1HAhN"
-                                    title="YouTube video player" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
-                                <p style="text-size:0.5rem;color:gray">Made with <a onclick="openUnityPopup()">Unity
-                                        (C#)</a></p>
-                            </center>
-
-                        </div>
-                        <div class="colr">
-                            <h1>About the Project<h3 style="color:gray;margin-top:-15px;">The content of the project
-                                </h3>
-                            </h1>
-                            <p>Simple game where you move a spaceship up or down and in order to dodge missiles. You
-                                could buy upgrades and stuff to progress.</p>
-                        </div>
-                        <div class="colm">
-                            <h1>Project Creation<h3 style="color:gray;margin-top:-15px;">Why I created it / what I
-                                    learned</h3>
-                            </h1>
-                            <p>This was made very soon after <a class="blue" href="#legsolII">Nolenopo</a>. It was
-                                fairly basic, I really just made it for
-                                fun. I learned a bit about animations and very rudimentary 3D modelling, plus making the
-                                inventory system, though simple, taught me a-lot about data storage.</p>
-                        </div>
-                    </div>
-
-                    <div class="widetextbox" style="display:inline-block;" id="legsolII">
-                        <div class="coll">
-                            <h1>YouTube Tutorials<h3 style="color:gray;margin-top:-15px;">Passion Project, 2017</h3>
-                            </h1>
-                            <center>
-                                <iframe class="youtubevideo"
-                                    src="https://www.youtube.com/embed/RR6f6Edsnzw?si=rhdYuesZ8D5uKY06"
-                                    title="YouTube video player" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
-                                <a class="btn" target="_blank"
-                                    href="https://www.youtube.com/playlist?list=PLotB3hPcUnwe8WesAmYSXASxPsPSk4_Jq">View
-                                    YouTube Playlist</a>
-                                <p>&nbsp;</p>
-                                <p style="text-size:0.5rem;color:gray">Made with <a onclick="openUnityPopup()">Unity
-                                        (C#)</a></p>
-                            </center>
-
-                        </div>
-                        <div class="colr" style="float:left;max-width:60%;width:auto;">
-                            <h1>About<h3 style="color:gray;margin-top:-15px;">Just me talking :)</h3>
-                            </h1>
-                            <p>When I was still new to coding, I really wanted to share my knowledge with people. Of
-                                course, my knowledge at the time wasn't particularly good or useful yet, but I still
-                                wanted to help other people learn the same stuff! So, I'm sharing my attempts as a child
-                                to share my interest in coding with others, though basic and making heavy use of
-                                pre-existing tools.</p>
+                            <h1>Project Creation<h3 style="color:gray;margin-top:-15px;">Left Column</h3></h1>
+                            <p>Project Description, <a onclick="getPopup('test')">popup btn</a></p>
                         </div>
                     </div>
                 </center>
@@ -990,6 +689,21 @@
 
     <script type="text/javascript">
 
+        const PopupMap = new Map();
+
+        //Load popup map
+
+        PopupMap.set("test", "test text!")
+
+
+        function getPopup(title) {
+            if (PopupMap.has(title)) {
+                openPopup(title, PopupMap.get(title))
+            } else {
+                openPopup(title, "This popup doesn't exist!")
+            }
+        }
+
         function closepopup() {
             $("#infoPopup").removeClass("show");
         }
@@ -998,34 +712,6 @@
             document.getElementById("popupTitle").innerHTML = title;
             document.getElementById("popupContent").innerHTML = text;
             $("#infoPopup").addClass("show");
-        }
-
-        function openAsheaPopup() {
-            openPopup('Ashea', 'A <a onclick=\"openServerPopup()\">minecraft server</a> that I program plugins and organize events for. I volunteered as a developer in early 2023, and was promoted to lead developer in early 2024. </br> The server is based on <a onclick=\"openGeopolPopup()\">geopolitics</a>: Players build cities, create or join fantasy countries, negotiate with world leaders, act out planned events, fight in wars, etc. <br/> Also see <a onclick=\"openServerPopup()\">Minecraft Server<a>, <a onclick=\"openServerPopup()\">Minecraft Server</a>, and <a onclick=\"openGeopolPopup()\">Minecraft Geopol</a>')
-        }
-
-        function openUnityPopup() {
-            openPopup('Unity', 'A game engine that streamlines the video game development process. Projects in unity are written in the <a onclick=\"openCSharpPopup()\">C#</a> programming language');
-        }
-
-        function openCSharpPopup() {
-            openPopup('C# (C Sharp)', 'A fairly fast microsoft programming language. Good for math, used in Unity.');
-        }
-
-        function openMinecraftPopup() {
-            openPopup('Minecraft', 'A game about building, collecting resources, and fighting. <br/> Also see <a onclick=\"openAsheaPopup()\">Ashea<a>, <a onclick=\"openServerPopup()\">Minecraft Server</a>, and <a onclick=\"openGeopolPopup()\">Minecraft Geopolitics</a>');
-        }
-
-        function openServerPopup() {
-            openPopup('Minecraft Server', 'An network of online multiplayer <a onclick="\openMinecraftPopup()\">minecraft</a> worlds, hosted by players, which can be given custom features using <a onclick=\"openPluginPopup()\">plugins</a>. <br/> Also see <a onclick=\"openAsheaPopup()\">Ashea<a>, <a onclick=\"openMinecraftPopup()\">Minecraft</a>, and <a onclick=\"openGeopolPopup()\">Minecraft Geopol</a>');
-        }
-
-        function openGeopolPopup() {
-            openPopup('Minecraft Geopol', 'A type of <a onclick=\"openServerPopup()\">minecraft server</a> based on historical geopolitics in which players claim territory, form \'countries\', form fictional religions/cultures and act out fictional rituals/traditions in their name, engage in diplomacy and domestic power struggles, and go to war if all else fails. <br/> Also see <a onclick=\"openAsheaPopup()\">Ashea<a>, <a onclick=\"openServerPopup()\">Minecraft Server</a>, and <a onclick=\"openMinecraftPopup()\">Minecraft</a>')
-        }
-
-        function openPluginPopup() {
-            openPopup('Minecraft Plugin', 'A java application that modifies the <a onclick=\"openServerPopup()\">multiplayer version</a> of <a onclick=\"openMinecraftPopup()\">minecraft</a> to give the game custom features.')
         }
 
         //highlight btns (my code)
