@@ -40,8 +40,9 @@ function PlaceBlock(id) {
 				}
 			}
 			placedBlocks[key2d]=placedBlocks[key2d]??0+1;
-			placedBlocks[key]=block[id];
-			placedBlocks[key].onEmpty=true;
+			obj=blockList[id];
+			obj.onEmpty = true;
+			placedBlocks[key]=obj;
 			return true;
 		} else return false
 	}

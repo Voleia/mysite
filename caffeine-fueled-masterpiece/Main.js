@@ -62,7 +62,17 @@ function postDrawUpdates() {
 	keysLast={}
 	mouseLeft=false;
 	mouseRight=false;
+
+	if (guide) {
+		fill(0)
+		rect(Scale(100),Scale(100),Scale(400),Scale(400))
+		fill(255)
+		textSize(Scale(15))
+		text("CONTROLS:\nA & D - left & right\nQ & E - rotate world slice\nr or t - float up or down\nr AND t - go down 1e16 meters per frame\nn - hide or show this menu\n1/2/3/4/5/6 - select inventory slot\nleft click - place held block or use item\nright click - break block\n",Scale(300),Scale(300))
+	}
 }
+
+let guide = true;
 
 function draw() {
 	//INPUT
@@ -76,7 +86,14 @@ function draw() {
 		incrementTheta(-1/180);
 	}
 	if (Held('r')) {
-		pos.y+=1000000000;
+		pos.y-=1;
+		player.downVelocity = 0;
+	}
+	if (Held('t')) {
+		pos.y+=1;
+	}
+	if (Held('t') && Held('r')) {
+		pos.y+=1e15
 	}
 
 	//DRAW SCREEN
@@ -368,7 +385,6 @@ let mouseLeft = false;
 let mouseRight = false;
 
 function mousePressed(event) {
-	print(mouseButton)
 	if (mouseButton === LEFT) mouseLeft = true;
 	else if (mouseButton === RIGHT) mouseRight = true;
 }
@@ -385,6 +401,9 @@ function Pressed(key) {
 function keyPressed(event) {
 	keys[event.key]=true;
 	keysLast[event.key]=true;
+	if (event.key=='n') {
+		guide=!guide;
+	}
 }
 
 function keyReleased(event) {
