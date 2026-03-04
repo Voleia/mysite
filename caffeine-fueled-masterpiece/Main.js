@@ -96,13 +96,13 @@ function draw() {
 	if (Held('t') && Held('r')) {
 		pos.y+=1e15
 	}
-	if (Pressed('+')) {
+	if (Pressed('+') || Pressed('=')) {
 		mapScale/=2;
 		if (mapScale<1) {
 			mapScale=1;
 		}
 	}
-	if (Pressed('-')) {
+	if (Pressed('-') || Pressed('_')) {
 		mapScale*=2;
 	}
 
@@ -181,7 +181,7 @@ function draw() {
 					fill(30, floor_(25-height)*10.2, 100);
 				}
 			}
-			rect(Scale(b_x+x*s_),Scale(b_y+z*s_),Scale(s_+1),Scale(s_))
+			rect(Scale(b_x+x*s_),Scale(b_y+z*s_),Scale(s_*mapScale+1),Scale(s_*mapScale+1))
 		}
 	}
 	stroke(255,255,255);
