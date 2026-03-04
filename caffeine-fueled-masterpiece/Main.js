@@ -168,8 +168,8 @@ function draw() {
 	let b_=15;
 	let b_x=15-(startX%1*s_);
 	let b_y=15-(startZ%1*s_);
-	for (let x = 0; x < lenHor; x) {
-		for (let z = 0; z < lenHor; z) {
+	for (let x = 0; x < lenHor; x++) {
+		for (let z = 0; z < lenHor; z++) {
 			let tX = x*mapScale;
 			let tZ = z*mapScale;
 			if (placedBlocks2D[`${floor_(startX)+tX},${floor_(startZ)+tZ}`]!=null) {
