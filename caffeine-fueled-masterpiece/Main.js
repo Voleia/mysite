@@ -168,12 +168,14 @@ function draw() {
 	let b_=15;
 	let b_x=15-(startX%1*s_);
 	let b_y=15-(startZ%1*s_);
-	for (let x = 0; x < lenHor; x+=mapScale) {
-		for (let z = 0; z < lenHor; z+=mapScale) {
-			if (placedBlocks2D[`${floor_(startX)+x},${floor_(startZ)+z}`]!=null) {
+	for (let x = 0; x < lenHor; x) {
+		for (let z = 0; z < lenHor; z) {
+			let tX = x*mapScale;
+			let tZ = z*mapScale;
+			if (placedBlocks2D[`${floor_(startX)+tX},${floor_(startZ)+tZ}`]!=null) {
 				fill(255);
 			} else {
-				height = getNoiseAt(floor_(startX)+x,floor(startZ)+z)
+				height = getNoiseAt(floor_(startX)+tX,floor(startZ)+tZ)
 				if (height>12) {
 					let mapping = (height+10)/27
 					fill(200-mapping*200,200-mapping*200,255)
@@ -181,7 +183,7 @@ function draw() {
 					fill(30, floor_(25-height)*10.2, 100);
 				}
 			}
-			rect(Scale(b_x+x*s_),Scale(b_y+z*s_),Scale(s_*mapScale+1),Scale(s_*mapScale+1))
+			rect(Scale(b_x+tX*s_),Scale(b_y+tZ*s_),Scale(s_+1),Scale(s_+1))
 		}
 	}
 	stroke(255,255,255);
