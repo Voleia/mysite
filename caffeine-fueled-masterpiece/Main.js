@@ -73,6 +73,7 @@ function postDrawUpdates() {
 }
 
 let guide = true;
+let mapScale = 1;
 
 function draw() {
 	//INPUT
@@ -94,6 +95,15 @@ function draw() {
 	}
 	if (Held('t') && Held('r')) {
 		pos.y+=1e15
+	}
+	if (Pressed('+')) {
+		mapScale=round(mapScale/2);
+		if (mapScale<1) {
+			mapScale=1;
+		}
+	}
+	if (Pressed('-')) {
+		mapScale=round(mapScale*2);
 	}
 
 	//DRAW SCREEN
@@ -152,14 +162,14 @@ function draw() {
 
 	//VISUALIZE
 	noStroke();
-	startX=pos.x-lenHor/2
-	startZ=pos.z-lenHor/2
+	startX=pos.x-lenHor*mapScale/2
+	startZ=pos.z-lenHor*mapScale/2
 	let s_=125/lenHor;
 	let b_=15;
 	let b_x=15-(startX%1*s_);
 	let b_y=15-(startZ%1*s_);
-	for (let x = 0; x < lenHor; x++) {
-		for (let z = 0; z < lenHor; z++) {
+	for (let x = 0; x < lenHor; x+=mapScale) {
+		for (let z = 0; z < lenHor; z+=mapScale) {
 			if (placedBlocks2D[`${floor_(startX)+x},${floor_(startZ)+z}`]!=null) {
 				fill(255);
 			} else {
@@ -342,7 +352,7 @@ function getNaturalBlockData(x,y,z) {
 	if (y<height) {
 		return {solid:false,artificial:false,type:y>=13?'7':'8'}
 	} else { 
-		let caveNoise = noise(0.1*(x+194),0.3*(y+1042),0.1*(z+052));
+		let caveNoise = noise(0.1*(x+194),0.3*(y+1042),0.1*(z+52));
 		if (y<height+5) {
 			if (caveNoise<=0.3) return {solid:false,artificial:false,type:'6'}
 			//else if (y>=13) return {solid:true,artificial:false,type:'SAND'}
