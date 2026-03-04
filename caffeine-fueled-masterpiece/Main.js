@@ -97,13 +97,13 @@ function draw() {
 		pos.y+=1e15
 	}
 	if (Pressed('+')) {
-		mapScale=round(mapScale/2);
+		mapScale/=2;
 		if (mapScale<1) {
 			mapScale=1;
 		}
 	}
 	if (Pressed('-')) {
-		mapScale=round(mapScale*2);
+		mapScale*=2;
 	}
 
 	//DRAW SCREEN
