@@ -17,6 +17,8 @@ function BreakBlock(id) {
 		if (placedBlocks[key].onEmpty??false) placedBlocks[key]=blockList['2'];
 		else placedBlocks[key]=null;
 	}
+	player.timer.Set(0)
+	return true;
 }
 
 function PlaceBlock(id) {
@@ -40,14 +42,14 @@ function PlaceBlock(id) {
 				}
 			}
 			placedBlocks[key2d]=placedBlocks[key2d]??0+1;
-			obj=blockList[id];
-			obj.onEmpty = true;
-			placedBlocks[key]=obj;
+			placedBlocks[key]=blockList[id];
+			placedBlocks[key].onEmpty=true;
 			return true;
 		} else return false
 	}
 	placedBlocks[key2d]=placedBlocks[key2d]??0+1;
 	placedBlocks[key]=blockList[id];
+	player.timer.Set(0)
 	return true;
 }
 
@@ -69,7 +71,7 @@ let blockList = {
 	'5':{id:'5', natural:true}, //NATURAL DIRT
 	'6':{id:'6', natural:true}, //NATURAL STONE WALL
 	'7':{id:'7', natural:true}, //NATURAL WATER
-	'8':{id:'8', natural:true} //NATURAL AIR
+	'8':{id:'8', natural:true}, //NATURAL AIR
 	//2-32 reserved for natural blocks.
 }
 
@@ -80,6 +82,8 @@ function ItemFunctionTeleport(id) {
 		pos.y-=len/2+0.5
 		container.TryRemoveItem(id,1)
 	}
+	player.timer.Set(1)
+	return true;
 }
 
 function DebugGetNatural() {

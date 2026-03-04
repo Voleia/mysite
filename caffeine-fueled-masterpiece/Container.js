@@ -8,7 +8,7 @@ class Container {
 		let item = this.contents[selected]??null
 		if (item!=null) {
 			(left?item.item.ActionLeft:item.item.ActionRight)(item.id);
-		} else {
+		} else if (!left)  {
 			BreakBlock();
 		}
 	}

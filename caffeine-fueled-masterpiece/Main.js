@@ -23,7 +23,6 @@ function setup() {
 	sf = sH/600;
 	fill(size)
 	strokeWeight(1);
-	frameRate(60);
 	randomSeed(429091)	
 	document.addEventListener("contextmenu", (e) => e.preventDefault());
 	new Item("Teleporter", "Teleporter", ItemFunctionTeleport, ItemFunctionTeleport).SetTextRenderer(10, 'Teleport');
@@ -33,11 +32,16 @@ function setup() {
 	new Item('4', "Stone", PlaceBlockFromContainer, BreakBlock).SetSquareRenderer(15, 15, 190, 190, 190);
 	new Item('5', "Dirt", PlaceBlockFromContainer, BreakBlock).SetSquareRenderer(15, 15, 190, 160, 120);
 	new Item('debug', "Debug", DebugGetNatural, DebugGetAll).SetSquareRenderer(15, 15, 255, 255, 255);
+	new Item('33', "Shimmer", PlaceBlockFromContainer, BreakBlock).SetMultiRenderer(15, 15, 132, 240, 215, 40, 40, 40, false);
+	new Item('34', "Rainbow", PlaceBlockFromContainer, BreakBlock).SetCustomMultiRenderer(15, 15, [229,0,0,  255,141,0,  255,238,0,  2,129,33,  0,76,255,  118,0,136,  255,255,255,  255,175,199,  115,215,237]);
+
 	player = new PlayerObject();
 }
 
+let dark = true;
+let inWater = false;
 
-let pos = {x:1000,y:-50,z:1000}
+let pos = {x:1000.5,y:-50,z:1000.5}
 let practicalPos = {x:1000.0,y:0,z:1000} //Modifying this does nothing, modify pos instead
 let pi = 3.141592653
 let theta = 1.57079632679; //90 degrees.
@@ -58,10 +62,11 @@ let placedBlocks2D = {};
 let mouseClickedEvent = false;
 
 function postDrawUpdates() {
+	randomSeed(curMillis);
 	ScreenToVoxelPos(mouseX,mouseY);
 	keysLast={}
-	mouseLeft=false;
-	mouseRight=false;
+	//mouseLeft=false;
+	//mouseRight=false;
 
 	if (guide) {
 		fill(0)
@@ -74,8 +79,13 @@ function postDrawUpdates() {
 
 let guide = true;
 let mapScale = 1;
-
+let curMillis = 0;
 function draw() {
+	if (deltaTime > 1000) {
+		print("FPS under 1; frame skipped")
+		return;
+	}
+	curMillis = millis();
 	//INPUT
 	let dx = -sin(theta); //view direction perpendicular to camera.
 	let dz = cos(theta);
@@ -104,6 +114,9 @@ function draw() {
 	}
 	if (Pressed('-') || Pressed('_')) {
 		mapScale*=2;
+		if (mapScale>32) {
+			mapScale=32;
+		}
 	}
 
 	//DRAW SCREEN
@@ -133,9 +146,16 @@ function draw() {
 	
 	let tEnter = 0;
 	noStroke();
-	background(70,130,255)
+	dark = practicalPos.y>getNoiseAt(floor(pos.x),floor(pos.z))+5;
+	if (!(dark || inWater)) {
+		background(68, 142, 228)
+		if (dark) {
+			//Stars
+		}
+	} else {
+		background(0);
+	}
 	fill(20,60,255)
-	rect(0,size*13-pos.y*size-size*8/9,sW,6000);
 	while (tEnter*size < sW) { //loop through COLUMNS
 
 		let tExit = Math.min(tMaxX, tMaxZ);
@@ -183,15 +203,15 @@ function draw() {
 					fill(30, floor_(25-height)*10.2, 100);
 				}
 			}
-			rect(Scale(b_x+tX*s_),Scale(b_y+tZ*s_),Scale(s_+1),Scale(s_+1))
+			rect(Scale(b_x+x*s_),Scale(b_y+z*s_),Scale(s_+1),Scale(s_+1))
 		}
 	}
 	stroke(255,255,255);
 	//line(b_+s_*len/2,b_+s_*len/2,slope*s_*len/2,s_*len/2);
-	line(Scale(b_+s_*lenHor/2-dx*s_*lenHor/2),
-		 Scale(b_+s_*lenHor/2-dz*s_*lenHor/2), 
-		 Scale(b_+s_*lenHor/2+dx*s_*lenHor/2), 
-		 Scale(b_+s_*lenHor/2+dz*s_*lenHor/2))	
+	line(Scale(b_+s_*lenHor/2-dx*s_*lenHor/2/mapScale),
+		 Scale(b_+s_*lenHor/2-dz*s_*lenHor/2/mapScale), 
+		 Scale(b_+s_*lenHor/2+dx*s_*lenHor/2/mapScale), 
+		 Scale(b_+s_*lenHor/2+dz*s_*lenHor/2/mapScale))	
 	strokeWeight(Scale(5))
 	point(Scale(b_+s_*lenHor/2), Scale(b_+s_*lenHor/2))
 	strokeWeight(min(Scale(1),1))
@@ -310,40 +330,70 @@ function getNoiseAt(x,z) {
 
 function fillBlock(x,y,z) {
 	placed = placedBlocks[`${x},${y},${z}`]??null;
+	let height = getNoiseAt(x,z)
+
+	let m = 1;
+	if (dark || inWater) {
+		let xs=(x-practicalPos.x);
+		let xy=(y-practicalPos.y);
+		let xz=(z-practicalPos.z);
+		let distanceSquared = xs*xs+xy*xy+xz*xz;
+		if (distanceSquared < 36) {
+			m=1;
+		} else if (distanceSquared > 144) {
+			m=0;
+			fill(0);
+			return true;
+		} else {
+			m=1-(distanceSquared-36)/(144-36)
+		}//9
+	}
+	
 	if (placed!=null) {
 		if (placed.id=='2') {
+			if (y>height+5) {
+				fill(m*(90+30*noise(35*x,35*y,35*z)))
+				return true;
+			}
 			return false;
-		} else {
+		} else if (placed.ref==null) {
 			switch (placed.id) {
 				case '3': //Grass
-					fill(70,200+55*noise(35*x,35*y,35*z),130)
+					fill(m*(70),m*(200+55*noise(35*x,35*y,35*z)),m*(130))
 					return true;
 				case '4': //Stone
-					fill(170+40*noise(35*x,35*y,35*z))
+					fill(m*(170+40*noise(35*x,35*y,35*z)))
 					return true;
 				case '5': //Dirt
-					fill(170+45*noise(35*x,35*y,35*z),160,120)
+					fill(m*(170+45*noise(35*x,35*y,35*z)),m*(160),m*(120))
 					return true;
 				default:
-					fill(placed.r,placed.g,placed.b)
+					fill(m*placed.r,m*placed.g,m*placed.b)
 					return true;
 			}
+		} else {
+			placed.ref(x,y,z,m);
+			return true;
 		}
 	}
 	
-	let height = getNoiseAt(x,z)
 	if (y<height) {
+		if (y>=12) { //water
+			let nois = noise(35*x,35*z,0.001*curMillis+35*y);
+			fill(0, m*(60+25*nois), m*(215+25*nois))
+			return true;
+		}
 		return false;
 	} else { 
 		let caveNoise = noise(0.1*(x+194),0.3*(y+1042),0.1*(z+052));
 		if (y<height+5) {
-			if (caveNoise<=0.3) fill(90+30*noise(35*x,35*y,35*z))
+			if (caveNoise<=0.3) fill(m*(90+30*noise(35*x,35*y,35*z)))
 			//else if (height>=12 || y>=16) fill(246, 220+20*noise(35*x,35*y,35*z), 189)
-			else fill(70,200+55*noise(35*x,35*y,35*z),130)
+			else fill(m*(70),m*(200+55*noise(35*x,35*y,35*z)),m*(130))
 		} else {
-			if (caveNoise<=0.4) fill(90+30*noise(35*x,35*y,35*z))
-			else if (caveNoise<=0.5) fill(170+40*noise(35*x,35*y,35*z))
-			else fill(170+45*noise(35*x,35*y,35*z),160,120)
+			if (caveNoise<=0.4) fill(m*(90+30*noise(35*x,35*y,35*z)))
+			else if (caveNoise<=0.5) fill(m*(170+40*noise(35*x,35*y,35*z)))
+			else fill(m*(170+45*noise(35*x,35*y,35*z)),m*(160),m*(120))
 		}
 	}
 	return true;
@@ -352,7 +402,7 @@ function fillBlock(x,y,z) {
 function getNaturalBlockData(x,y,z) {
 	let height = getNoiseAt(x,z)
 	if (y<height) {
-		return {solid:false,artificial:false,type:y>=13?'7':'8'}
+		return {solid:false,artificial:false,type:y>=12?'7':'8'}
 	} else { 
 		let caveNoise = noise(0.1*(x+194),0.3*(y+1042),0.1*(z+52));
 		if (y<height+5) {
@@ -372,7 +422,7 @@ function getBlockData(x,y,z) {
 	if (placed!=null) return {solid:placed.solid??true,artificial:true,type:placed.id}
 	let height = getNoiseAt(x,z)
 	if (y<height) {
-		return {solid:false,artificial:false,type:y>=13?'7':'8'}
+		return {solid:false,artificial:false,type:y>=12?'7':'8'}
 	} else { 
 		let caveNoise = noise(0.1*(x+194),0.3*(y+1042),0.1*(z+052));
 		if (y<height+5) {
@@ -397,8 +447,13 @@ let mouseLeft = false;
 let mouseRight = false;
 
 function mousePressed(event) {
-	if (mouseButton === LEFT) mouseLeft = true;
-	else if (mouseButton === RIGHT) mouseRight = true;
+	if (event.button === 0) mouseLeft = true;
+	else if (event.button === 2) mouseRight = true;
+}
+
+function mouseReleased(event) {
+	if (event.button === 0) mouseLeft = false;
+	else if (event.button === 2) mouseRight = false;
 }
 
 //Input System

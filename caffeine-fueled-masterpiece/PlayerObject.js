@@ -6,10 +6,12 @@ class PlayerObject {
 		this.inventory = new Container(6);
 		this.selected = 0;
 
-		this.inventory.TryAddItem('Teleporter',1000)
-		this.inventory.TryAddItem('0',30)
-		this.inventory.TryAddItem('1',5)
-		this.inventory.TryAddItem('debug',1)
+		this.inventory.TryAddItem('Teleporter',40000000000)
+		this.inventory.TryAddItem('0',128)
+		this.inventory.TryAddItem('1',128)
+		this.inventory.TryAddItem('33',128)
+		this.inventory.TryAddItem('34',128)
+		this.timer = new Timer().Set(0);
 	}
 	Update() {
 		this.Movement()
@@ -18,23 +20,32 @@ class PlayerObject {
 	}
 
 	TickInventory() {
+		let oldSel = this.selected;
 		if (Pressed('1')) this.selected=0;
 		else if (Pressed('2')) this.selected=1;
 		else if (Pressed('3')) this.selected=2;
 		else if (Pressed('4')) this.selected=3;
 		else if (Pressed('5')) this.selected=4;
 		else if (Pressed('6')) this.selected=5;
+		else if (Pressed('7')) this.selected=6;
+		else if (Pressed('8')) this.selected=7;
+		else if (Pressed('9')) this.selected=8;
+		if (oldSel!=this.selected) {
+			print("T")
+			this.timer.Set(0);
+		}
 
-		if (mouseLeft) this.inventory.Use(this.selected,true);
-		if (mouseRight) this.inventory.Use(this.selected,false);
-
+		if (this.timer.Check()) {
+			if (mouseLeft) this.inventory.Use(this.selected,true);
+			if (mouseRight) this.inventory.Use(this.selected,false);
+		}
 
 		//Render
-		for (let i = 0; i < 6; i++) {
+		for (let i = 0; i < 9; i++) {
 			noStroke();
 			fill(50);
 			rect(Scale(155+i*74),Scale(15),Scale(60),Scale(60));
-			stroke(i==this.selected?255:100);
+			stroke(i==this.selected?(this.timer.Progress()*255):100);
 			strokeWeight(4);
 			rect(Scale(155+i*74+5),Scale(20),Scale(50),Scale(50));
 			let item = this.inventory.contents[i]??null;
@@ -87,5 +98,13 @@ class PlayerObject {
 		noStroke();
 		fill(255,0,255)
 		rect(sW/2-size/2+1,sH/2+1,size-2,size-2)
+
+		if (getBlockData(floor(practicalPos.x),floor(practicalPos.y),floor(practicalPos.z)).type=='7') {
+			fill(0,0,255,100)
+			rect(0,0,sW,sH)
+			inWater = true;
+		} else {
+			inWater = false;
+		}
 	}
 }
