@@ -32,23 +32,24 @@ function PlaceBlock(id) {
 	if (blockData.solid) return false;
 	if (placedBlocks[key]!=null) {
 		if (placedBlocks[key].id=='2') {
-			placedBlocks[key2d]=placedBlocks[key2d]??0+1;
+			//placedBlocks2D[key2d]=placedBlocks2D[key2d]??0+1;
 			let block = blockList[id]
 			if (block.natural??false) {
 				if (block.id==getNaturalBlockData(selected.x,selected.y,selected.z).type) {
 					placedBlocks[key]=null;
-					placedBlocks[key]=block[id];
+					//placedBlocks[key]=block[id];
 					return true;
 				}
 			}
-			placedBlocks[key2d]=placedBlocks[key2d]??0+1;
+			if (placedBlocks2D[key2d]==null) placedBlocks2D[key2d] = 1;
+			else placedBlocks2D[key2d] = placedBlocks2D[key2d] + 1;	placedBlocks[key]=blockList[id];
 			placedBlocks[key]=blockList[id];
 			placedBlocks[key].onEmpty=true;
 			return true;
 		} else return false
 	}
-	placedBlocks[key2d]=placedBlocks[key2d]??0+1;
-	placedBlocks[key]=blockList[id];
+	if (placedBlocks2D[key2d]==null) placedBlocks2D[key2d] = 1;
+	else placedBlocks2D[key2d] = placedBlocks2D[key2d] + 1;	placedBlocks[key]=blockList[id];
 	player.timer.Set(0)
 	return true;
 }

@@ -188,22 +188,37 @@ function draw() {
 	let b_=15;
 	let b_x=15-(startX%1*s_);
 	let b_y=15-(startZ%1*s_);
-	for (let x = 0; x < lenHor; x++) {
-		for (let z = 0; z < lenHor; z++) {
-			let tX = x*mapScale;
-			let tZ = z*mapScale;
-			if (placedBlocks2D[`${floor_(startX)+tX},${floor_(startZ)+tZ}`]!=null) {
-				fill(255);
-			} else {
-				height = getNoiseAt(floor_(startX)+tX,floor(startZ)+tZ)
-				if (height>12) {
-					let mapping = (height+10)/27
-					fill(200-mapping*200,200-mapping*200,255)
-				} else {
-					fill(30, floor_(25-height)*10.2, 100);
-				}
+	let fSX = floor(startX);
+	let fSZ = floor(startZ);
+	if (practicalPos.y>getNoiseAt(floor(pos.x),floor(pos.z))+5) { //Use cave map underground.
+		let y = floor(practicalPos.y);
+		for (let x = 0; x < lenHor; x++) {
+			for (let z = 0; z < lenHor; z++) {
+				let tX = x*mapScale;
+				let tZ = z*mapScale;
+
+				fillBlock(fSX+tX,y,fSZ+tZ,true);
+				rect(Scale(b_x+x*s_),Scale(b_y+z*s_),Scale(s_+1),Scale(s_+1))
 			}
-			rect(Scale(b_x+x*s_),Scale(b_y+z*s_),Scale(s_+1),Scale(s_+1))
+		}
+	} else {
+		for (let x = 0; x < lenHor; x++) {
+			for (let z = 0; z < lenHor; z++) {
+				let tX = x*mapScale;
+				let tZ = z*mapScale;
+				if (placedBlocks2D[`${fSX+tX},${fSZ+tZ}`]!=null) {
+					fill(255);
+				} else {
+					height = getNoiseAt(fSX+tX,fSZ+tZ)
+					if (height>12) {
+						let mapping = (height+10)/27
+						fill(200-mapping*200,200-mapping*200,255)
+					} else {
+						fill(30, floor_(25-height)*10.2, 100);
+					}
+				}
+				rect(Scale(b_x+x*s_),Scale(b_y+z*s_),Scale(s_+1),Scale(s_+1))
+			}
 		}
 	}
 	stroke(255,255,255);
@@ -328,12 +343,12 @@ function getNoiseAt(x,z) {
 	return height;
 }
 
-function fillBlock(x,y,z) {
+function fillBlock(x,y,z, ignoreDark=true) {
 	placed = placedBlocks[`${x},${y},${z}`]??null;
 	let height = getNoiseAt(x,z)
 
 	let m = 1;
-	if (dark || inWater) {
+	if ((dark || inWater) && !ignoreDark) {
 		let xs=(x-practicalPos.x);
 		let xy=(y-practicalPos.y);
 		let xz=(z-practicalPos.z);
