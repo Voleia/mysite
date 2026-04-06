@@ -1,21 +1,23 @@
 class Inertia {
-	constructor(position=0,time=0,velocity=0,len=200,ftl=false) {
+	constructor(position=0,time=0,velocity=0,len=200,ftl=false,defName="%s3c") {
 		this.v = velocity
 		this.p = position; //stationary frame
 		this.t = time; //stationary frame
 		this.len=len;
-		if (this.len==0) {
-			this.name = "Event"
-			this.event=true;
-		} else {
-			this.name = "%s3c"
-			this.event=false;
-		}
-		this.display = Parse(this.name,this);
 
 		this.breaksCausality = abs(this.v)>=1;
 		this.timeTravel=ftl;
 		this.gamma = 1;
+
+		this.name=defName;
+
+		if (this.len==0) {
+			this.name = "Event (%p0m, %t0s)"
+			this.event=true;
+		} else {
+			this.event=false;
+		}
+		this.display = Parse(this.name,this);
 
 		if (ReferenceFrame==null) {
 			this.x0 = this.p;
@@ -29,6 +31,8 @@ class Inertia {
 			this.y1 = this.t+1;
 			this.AdjustReferenceFrame(ReferenceFrame);
 		}
+
+
 	}
 
 	GetLorentz(ref=ReferenceFrame) {

@@ -24,6 +24,10 @@ function setup() {
 	StationaryFrame.display = "Stationary Reference"
 	
 	append(vals,StationaryFrame)
+	append(vals,new Inertia(-150,0,0,10000))
+	append(vals,new Inertia(-400,-200,1,10000,false,"moving at EXACTLY C"))
+	append(vals,new Inertia(-150,100,0.8,10000))
+	append(vals,new Inertia(130,140,0.99,0)) //event
 
 	for (let i = 0; i < vals.length; i++) {
 		vals[i].AdjustReferenceFrame()
