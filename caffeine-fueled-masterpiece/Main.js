@@ -14,8 +14,8 @@ function Scale(x) {
 	return x*sf;
 }
 function setup() {
-	createCanvas(windowWidth, windowHeight);
-	sW=windowWidth;
+	let canvas = createCanvas(windowWidth-85, windowHeight);
+	sW=windowWidth-85;
 	sH=windowHeight;
 	background(100);
 	size = sH/len;
@@ -36,6 +36,7 @@ function setup() {
 	new Item('34', "Rainbow", PlaceBlockFromContainer, BreakBlock).SetCustomMultiRenderer(15, 15, [229,0,0,  255,141,0,  255,238,0,  2,129,33,  0,76,255,  118,0,136,  255,255,255,  255,175,199,  115,215,237]);
 
 	player = new PlayerObject();
+	canvas.parent('app_container');
 }
 
 let dark = true;

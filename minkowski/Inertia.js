@@ -4,6 +4,14 @@ class Inertia {
 		this.p = position; //stationary frame
 		this.t = time; //stationary frame
 		this.len=len;
+		if (this.len==0) {
+			this.name = "Event"
+			this.event=true;
+		} else {
+			this.name = "%s3c"
+			this.event=false;
+		}
+		this.display = Parse(this.name,this);
 
 		this.breaksCausality = abs(this.v)>=1;
 		this.timeTravel=ftl;
@@ -55,6 +63,8 @@ class Inertia {
 		this.y0=t0post;
 		this.x1=p1post;
 		this.y1=t1post;
+
+		this.display = Parse(this.name,this);
 	}
 
 	AdjustTick() {

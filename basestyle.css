@@ -1,0 +1,490 @@
+html {
+    scroll-behavior: smooth !important;
+}
+
+body {
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    overflow-x: hidden;
+    color: white;
+    background-color: rgb(13, 13, 13);
+    scroll-behavior: smooth !important;
+}
+
+.popup {
+    position: fixed;
+    z-index: 8;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,
+            0,
+            0,
+            0.4);
+    display: none;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.popup-content {
+    text-align: center;
+    background-color: rgb(13, 13, 13);
+    margin: 10% auto;
+    padding: 1rem;
+    border: 3px solid grey;
+    border-radius: 10px;
+    width: 30%;
+}
+
+.show {
+    display: block;
+}
+
+.youtubevideo {
+    aspect-ratio: 16/9;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.coll {
+    width: 30%;
+    float: left;
+    padding-left: 12px;
+    padding-right: 12px;
+    text-align: left;
+}
+
+.colm {
+    text-align: left;
+    max-width: 33%;
+}
+
+.colr {
+    width: 30%;
+    float: right;
+    padding-left: 12px;
+    padding-right: 12px;
+    text-align: left;
+}
+
+.agiyabox {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://i.imgur.com/AJkVAr7.png');
+    background-size: cover;
+}
+
+.textbox {
+    background-color: rgba(5, 54, 58, 0.8);
+    width: min(90%, 800px);
+    color: white;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    border: solid rgb(14, 163, 173) 5px;
+}
+
+.widetextbox {
+    background-color: rgba(5, 54, 58, 0.8);
+    width: 90%;
+    color: white;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    border: solid rgb(14, 163, 173) 5px;
+}
+
+.flexbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.highlighted {
+    background-color: rgb(55, 55, 0);
+    width: auto;
+}
+
+.hoverable:hover {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(17 170 204);
+    font-weight: bold;
+}
+
+.reda a {
+    color: rgb(221 83 109)
+}
+
+.reda a:hover {
+    color: rgb(255 96 126)
+}
+
+a:hover {
+    color: rgb(21 212 255)
+}
+
+.p_passion {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    border-radius: 6px;
+}
+
+.p_school {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    border-radius: 6px;
+}
+
+.p_volunteer {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    border-radius: 6px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+.blue {
+    color: rgb(17 170 204) !important
+}
+
+.blue:hover {
+    color: rgb(21 212 255) !important
+}
+hr {
+    border: 2px solid rgb(60 60 60);
+    margin-left:20%;
+    margin-right:20%;
+}
+.red {
+    color: rgb(221 83 109)
+}
+
+.red:hover {
+    color: rgb(255 96 126)
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.bolder {
+    font-weight: bolder;
+}
+
+.white {
+    color: white;
+    font-weight: normal;
+}
+
+a .white:hover {
+    color: rgb(220 220 220)
+}
+
+/*
+.msbtn {
+border:solid rgb(202, 202, 202) 2px;border-radius:16px;padding-top:3px;padding-bottom:3px;padding-right:6px;padding-left:6px;background-color:rgb(30, 30, 30);
+}
+*/
+
+.msbtn {
+    border-radius: 4px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 6px;
+    padding-left: 6px;
+    color: white;
+    font-weight: normal;
+    background-color: rgba(17, 170, 204, 0.3);
+    /*border: solid rgb(202, 202, 202) 2px;*/
+    line-height: 30px;
+}
+
+.msbtn:hover {
+    background-color: rgba(17, 170, 204, 0.6);
+    color: white;
+}
+
+.msbtn:active {
+    background-color: white;
+    color: black;
+}
+
+.redmsbtn {
+    border-radius: 4px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 6px;
+    padding-left: 6px;
+    color: white;
+    font-weight: normal;
+    background-color: rgba(221, 83, 109, 0.3);
+    /*border: solid rgb(202, 202, 202) 2px;*/
+}
+
+.redmsbtn:hover {
+    background-color: rgba(221, 83, 109, 0.6);
+    color: white;
+}
+
+.redmsbtn:active {
+    background-color: white;
+    color: black;
+}
+
+.btn {
+    margin: 0;
+    padding: 10px 30px;
+    color: white;
+    background-color: rgba(17, 170, 204, 0.3);
+    border: 2px solid white;
+    border-radius: 12px;
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+a .btn {
+    color: white;
+}
+
+.btn a {
+    color: white;
+}
+
+.reda .btn {
+    color: white;
+}
+
+a .btn:hover {
+    color: black;
+}
+
+.btn a:hover {
+    color: black;
+}
+
+.reda .btn:hover {
+    color: black;
+}
+
+.btn:hover {
+    background-color: rgba(17, 170, 204, 0.6);
+    color: white;
+}
+
+
+.btn:active {
+    background-color: white;
+    color: black;
+}
+
+.cn {
+    font-family: "Cinzel";
+}
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    color: white;
+    width: 20%;
+    min-width: 200px;
+    background-color: rgb(20 20 20);
+    position: fixed;
+    height: 100%;
+    text-align: center;
+    overflow: auto;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+}
+
+.sidebar a.active {
+    font-weight: bold;
+    color: rgb(221 83 109)
+}
+
+.sidebar a:hover:not(.active) {
+    font-weight: bold;
+    color: rgb(17 170 204)
+}
+
+div.content {
+    margin-left: max(20%, 200px);
+    padding-top: 0;
+    overflow: wrap;
+}
+
+.section {
+    padding: 16px;
+    border-bottom: 4px solid rgb(60 60 60);
+    background-color: black;
+}
+
+.sectionheader {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: rgb(20 20 20);
+    color: white;
+    text-align: left;
+    width: 100%;
+    margin-top: 0px;
+    /*padding-bottom: 0px;*/
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-bottom: 0px;
+    height: 40px;
+    border-bottom: 4px solid rgb(60 60 60);
+    padding-left: 16px;
+    z-index: 5;
+    font-family: "cinzel"
+}
+
+@media screen and (min-width: 900px) {
+    .hideonpc {
+        display: none;
+    }
+
+    .buttonedSectionHeader {
+        display: flex;
+        align-items: center;
+    }
+
+    .buttonedSectionHeader a {
+        font-family: "Lexend", "Roboto", sans-serif;
+    }
+
+    .commentline {
+        float: right;
+    }
+
+    .sidebar {
+        border-right: 4px solid rgb(60 60 60);
+    }
+
+    .sidebar a {
+        font-size: min(1.5rem, 2.3vw);
+    }
+}
+
+@media screen and (max-width: 900px) and (min-width: 674px) {
+    .hideontablet {
+        display: none;
+    }
+
+    .buttonedSectionHeader {
+        display: none;
+    }
+
+
+    .popup-content {
+        width: 50%;
+    }
+
+}
+
+@media screen and (max-width: 900px) {
+    .commentline {
+        display: none;
+    }
+
+    /*.sectionheader a {
+font-weight: bold;
+float: right;
+color: white;
+padding-right: 16px;
+font-size: 1.25rem;
+padding-top: 6px;
+}*/
+
+    .sidebar a {
+        float: left;
+    }
+
+
+    div.content {
+        margin-left: 0;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+}
+
+@media screen and (max-width: 674px) {
+    .popup-content {
+        width: 80%;
+    }
+
+    .hideonmobile {
+        display: none;
+    }
+
+    .buttonedSectionHeader {
+        display: none;
+    }
+
+    .sidebar a {
+        text-align: center;
+        float: none;
+    }
+
+    .sidebar a {
+        font-size: min(1.75rem, 15vw);
+    }
+
+    .sectionheader {
+        text-align: center;
+        padding-left: 0;
+    }
+
+    .sectionheader h1 {
+        text-align: center;
+    }
+
+    .sidebar {
+        border-bottom: 4px solid rgb(60 60 60);
+    }
+
+    .coll {
+        width: 100%;
+        float: none;
+        padding-left: 12px;
+        padding-right: 12px;
+        max-width: 90%;
+    }
+
+    .colm {
+        width: 100%;
+        float: none;
+        padding-left: 12px;
+        padding-right: 12px;
+        max-width: 90%;
+    }
+
+    .colr {
+        width: 100%;
+        float: none;
+        padding-left: 12px;
+        padding-right: 12px;
+        max-width: 90%;
+    }
+}

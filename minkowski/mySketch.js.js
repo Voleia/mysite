@@ -9,23 +9,31 @@ let vals = [];
 let adjustTime = 0.5;
 const adjustMaxTime = 0.5;
 
+let adjWindowWidth;
+let adjWindowHeight;
+
 function setup() {
-	createCanvas(windowWidth, windowHeight);
+	adjWindowWidth = windowWidth-85;
+	adjWindowHeight = windowHeight;
+	let canvas = createCanvas(adjWindowWidth, adjWindowHeight)
 	background(100);
 
 	StationaryFrame = new Inertia(0,0,0,-1)
 	ReferenceFrame = StationaryFrame;
-
+	StationaryFrame.name = "Stationary Reference"
+	StationaryFrame.display = "Stationary Reference"
+	
 	append(vals,StationaryFrame)
 
 	for (let i = 0; i < vals.length; i++) {
 		vals[i].AdjustReferenceFrame()
 	}
 
-	center=new Vec(windowWidth/2,3*windowHeight / 4);
+	center=new Vec(adjWindowWidth/2,3*adjWindowHeight / 4);
 	Vec.up = new Vec(0,1);
 	Vec.right = new Vec(1,0);
 	Vec.zero = new Vec(0,0);
+	canvas.parent('app_container');
 }
 
 let lastSelected = null;
@@ -63,13 +71,19 @@ function draw() {
 		text("- Hold 'q' to keep space line on screen",50,215+off)
 		text("- yellow/brown/orange = speed of light, C",50,230+off)
 		text("- Scroll to zoom in or out",50,245+off)
+		text("- Press 'r' with an object selected to rename it,",50,260+off)
 	}
 	textAlign(CENTER)
+
+	if (Pressed('r') && lastSelected!=null) {
+		lastSelected.name = prompt("What would you like to call this\nVARIABLES (form %<var><num decimals>):\nv - velocity\ns - speed / absolute velocity\nl - length\nt - start time\np - start position\ny or γ - Relative Lorentz Factor" + (lastSelected.len==0?"event":"object"), lastSelected.name)
+		lastSelected.display = Parse(lastSelected.name,lastSelected);
+	}
 
 	/*noStroke();
 	textAlign(CENTER)
 	fill(100)
-	text("Width: " + floor(windowWidth * scale) + "m -- Height: " + (floor(windowHeight * scale / 299792458 * 1000000000)/1000) + "μs",center.x,center.y/3*4-10);
+	text("Width: " + floor(adjWindowWidth * scale) + "m -- Height: " + (floor(adjWindowHeight * scale / 299792458 * 1000000000)/1000) + "μs",center.x,center.y/3*4-10);
 	strokeWeight(3)
 	stroke(100)
 	drawingContext.setLineDash([]);
@@ -149,15 +163,15 @@ function draw() {
 		if (val.timeTravel) {
 			direction.Multiply(-1);
 		}
-		let end = new Vec(direction).Multiply(val.len==-1?(windowWidth+windowHeight):(val.len/scale*val.lorentz)).Add(a);
+		let end = new Vec(direction).Multiply(val.len==-1?(adjWindowWidth+adjWindowHeight):(val.len/scale*val.lorentz)).Add(a);
 
 		if (((Intersects(a,end) && !intersectionFound) || lastSelected == val)) {
 			strokeWeight(4);
 			intersectionFound = true;
 
 			stroke(0,255,0)
-			let end0 = new Vec(direction.y,direction.x).Multiply(val.len==-1?(-windowWidth-windowHeight):(-val.len/scale*val.lorentz)).Add(a);
-			let end1 = new Vec(direction.y,direction.x).Multiply(val.len==-1?(windowWidth+windowHeight):(val.len/scale*val.lorentz)).Add(a);
+			let end0 = new Vec(direction.y,direction.x).Multiply(val.len==-1?(-adjWindowWidth-adjWindowHeight):(-val.len/scale*val.lorentz)).Add(a);
+			let end1 = new Vec(direction.y,direction.x).Multiply(val.len==-1?(adjWindowWidth+adjWindowHeight):(val.len/scale*val.lorentz)).Add(a);
 			
 			if (!val.timeTravel) {
 				drawingContext.setLineDash([10, 10]);
@@ -187,22 +201,28 @@ function draw() {
 		} else {
 			drawingContext.setLineDash([]);
 		}
-		line(a.x,a.y,end.x,end.y);
-		strokeWeight(20);
-		point(a.x,a.y);
-
-		if (n) {
-			push() //start own group
-			translate(a.x,a.y)
-			if (val.v < 0) {
-				rotate(angle+PI)
-			} else {
-				rotate(angle)
-			}
-			noStroke();
-			text(floor(val.v*1000)/1000+"c",0,-15)
-			pop()
+		if (val.event) {
+			strokeWeight(20);
+			stroke(0,130,130)
+			fill(0,130,130)
+			point(a.x,a.y);
+		} else {
+			line(a.x,a.y,end.x,end.y);
+			strokeWeight(20);
+			point(a.x,a.y);
 		}
+
+
+		push() //start own group
+		translate(a.x,a.y)
+		if (val.v < 0) {
+			rotate(angle+PI)
+		} else {
+			rotate(angle)
+		}
+		noStroke();
+		text(/*floor(val.v*1000)/1000+"c"*/val.display,0,-15)
+		pop()
 	}
 
 
@@ -241,7 +261,7 @@ function draw() {
 		line(a_.x,a_.y,t0.x,t0.y)
 		line(a_.x,a_.y,t1.x,t1.y)
 		stroke(0,255,0)
-		line(0,a_.y,windowWidth,a_.y)
+		line(0,a_.y,adjWindowWidth,a_.y)
 		stroke(255,0,130)
 		line(a_.x,0,a_.x,a_.y)
 
@@ -262,7 +282,7 @@ function mousePressed() {
 			if (index>0) {
 				vals.splice(index,1);
 			}
-		} else if (!lastSelected.breaksCausality && !lastSelected.timeTravel) {
+		} else if (!lastSelected.breaksCausality && !lastSelected.timeTravel && !lastSelected.event) {
 			adjustTime=0;
 			lastReference = ReferenceFrame;
 			ReferenceFrame = lastSelected;
@@ -402,13 +422,65 @@ function mouseWheel(event) {
 	} else if (event.delta<0) {
 		scale/=1.25
 	}
-	if (scale * windowWidth < 100) {
-		scale = 100 / windowWidth;
+	if (scale * adjWindowWidth < 100) {
+		scale = 100 / adjWindowWidth;
 	}
 	if (scale < 1) {
 		scale = 1;
 	}
-	if (scale * windowWidth > 299792458) {
-		scale = 299792458 / windowWidth
+	if (scale * adjWindowWidth > 299792458) {
+		scale = 299792458 / adjWindowWidth
 	}*/
+}
+
+function Parse(name,inertia) {
+	let args = name.split('%');
+	let final = "";
+	for (let i = 0; i < args.length; i++) {
+		let arg = args[i];
+		let value = -1;
+		if (arg.length==0) {
+			continue;
+		}
+		if (arg.length<2) {
+			final+=arg;
+			continue;
+		} else switch (arg[0]) {
+			case 'v': //velocity
+				value = inertia.v;
+				break;
+			case 's': //absolute velocity / speed
+				value = abs(inertia.v)
+				break;
+			case 'y': //lorentz
+				value = inertia.GetLorentz()
+				break;
+			case 'γ': //also lorentz
+				value = inertia.GetLorentz()
+				break;
+			case 'p': //Starting position
+				value = inertia.p;
+				break;
+			case 't': //Starting time
+				value = inertia.t;
+				break;
+			case 'l': //length
+				if (inertia.len==-1) {
+					final+="Infinite"+arg.substring(2);
+					continue;
+				}
+				value = inertia.len;
+				break;
+			default:
+				final+=arg;
+				continue;
+		}
+		try {
+			let num = pow(10,int(arg[1]))
+			final=final+floor(value*num)/num+arg.substring(2);
+		} catch (exception) {
+			return "Error: Invalid Decimal Length; " + arg[1]
+		}
+	}
+	return final;
 }
