@@ -75,7 +75,7 @@ function draw() {
 		text("- Hold 'q' to keep space line on screen",50,215+off)
 		text("- yellow/brown/orange = speed of light, C",50,230+off)
 		text("- Scroll to zoom in or out",50,245+off)
-		text("- Press 'r' with an object selected to rename it,",50,260+off)
+		text("- Press 'r' with an object hovered to rename it,",50,260+off)
 	}
 	textAlign(CENTER)
 
