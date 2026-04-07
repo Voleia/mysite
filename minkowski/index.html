@@ -8,6 +8,10 @@
         <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel" />
+
+        <link rel="stylesheet" href="../popup.css">
+        <script src="../popup.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     </head>
     <style>
         body {
@@ -36,7 +40,15 @@
             <a class="menu" target="_blank" href="https://voleia.dev/caffeine-fueled-masterpiece/">3D Miner</a>
             <hr>
             <a class="menu" target="_blank" href="https://github.com/Voleia/mysite/tree/main/minkowski">Source<br>Code</a>
+            <a class="menu" onclick="openPopup('CC BY-SA 4.0', '<strong>This license only applies to content on this page and the original javascript scripts embedded within it. The license does not apply to any other content hosted or linked to by this site. Rights are reserved for all other original content unless otherwise noted.</strong><br><a href=\'https://creativecommons.org/licenses/by-sa/4.0\' target=\'_blank\'>View License</a>')">License</a>
         </div>
+        <div id="infoPopup" class="popup reda">
+        <div class="popup-content">
+            <h1 class="cn" id="popupTitle">Error!</h1>
+            <p id="popupContent">I forgot to set up this popup! My bad. Please click close.</p>
+            <a style="line-height:3.5rem" class="btn" onclick="closepopup()">Close</a>
+        </div>
+    </div>
     </div>
     <div id="app_container"></div>
 </body>
