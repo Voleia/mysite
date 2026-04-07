@@ -80,7 +80,8 @@ function draw() {
 	textAlign(CENTER)
 
 	if (Pressed('r') && lastSelected!=null) {
-		lastSelected.name = prompt("What would you like to call this\nVARIABLES (form %<var><num decimals>):\nv - velocity\ns - speed / absolute velocity\nl - length\nt - start time\np - start position\ny or γ - Relative Lorentz Factor" + (lastSelected.len==0?"event":"object"), lastSelected.name)
+		let answer = prompt("What would you like to call this\nVARIABLES (form %<var><num decimals>):\nv - velocity\ns - speed / absolute velocity\nl - length\nt - start time\np - start position\ny or γ - Relative Lorentz Factor" + (lastSelected.len==0?"event":"object"), lastSelected.name)
+		lastSelected.name = answer==null?lastSelected.name:answer;
 		lastSelected.display = Parse(lastSelected.name,lastSelected);
 	}
 
