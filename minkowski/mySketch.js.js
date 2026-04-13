@@ -25,7 +25,7 @@ function setup() {
 	
 	append(vals,StationaryFrame)
 	append(vals,new Inertia(-150,0,0,10000))
-	append(vals,new Inertia(-400,-200,1,10000,false,"moving at EXACTLY C"))
+	append(vals,new Inertia(-300,-100,1,10000,false,"light-speed object - %s1c"))
 	append(vals,new Inertia(-150,100,0.8,10000))
 	append(vals,new Inertia(130,140,0.99,0)) //event
 
@@ -42,14 +42,47 @@ function setup() {
 
 let lastSelected = null;
 
+let darkMode = false;
+let spaceLines = false;
 let n = true;
+const creditText = [
+		"CONTROLS",
+		" + Click an STL Object to shift into it's reference frame",
+		" + Hold 'Shift' - Display guide lines at mouse position",
+		" + Control+Click - Delete an object",
+		" + Shift+Click - Creates an event",
+		" + Shift+Click & Drag - Creates an object line",
+		"      release shift before releasing your mouse to extend the line further.",
+		" + Hold 'q' - Keeps the current-hovered object selected",
+		" + 'r' - Lets you rename the object you're hovering over",
+		" + 'd' - Toggles dark mode",
+		null,
+		"OBJECT KEY",
+		" + Solid Red - Slower than light object",
+		" + Dotted Red - Faster than light object",
+		" + Dotted Purple - Object that time travels in default reference frame",
+		" + Magenta - Default reference frame",
+		" + Cyan - Event at a single time and place",
+		" + Dotted Green - Space axis as seen by hovered observer",
+		null,
+		"GUIDE LINES:",
+		" + Dotted yellow - C, the only constant for all observers.",
+		" + Dotted black (Horizontal) - Space Axis",
+		" + Dotted black (Vertical) - Time Axis",
+]
 function draw() {
 	adjustTime+=deltaTime/1000;
 	/*for (let i = 0; i < vals.length; i++) {
 		StationaryFrame.v = mouseX / 800;
 		vals[i].ReferenceFrame(StationaryFrame)
 	}*/
-	background(225);
+	if (Pressed('d')) {
+		darkMode = !darkMode;
+	}
+	if (Pressed('v')) {
+		spaceLines=!spaceLines;
+	}
+	background(darkMode?0:230);
 	if (n) {
 		textAlign(LEFT);
 		let off = 55;
@@ -60,22 +93,10 @@ function draw() {
 		textSize(12)
 		text("By Avery Volei - Credit is Appreciated.",50,10+off)
 		text("Press 'n' to toggle this menu",50,25+off)
-		text("- Hover over a line to view it's space axis",50,45+off)
-		text("- Hold 'Shift' and drag mouse to make a new line",50,65+off)
-		text("- Release 'Shift' before releasing the mouse to set",50,80+off)
-		text("that line's length to infinity", 70, 95+off)
-		text("- Control+Click to delete a line",50,110+off)
-		text("- Click to shift into a STL line's reference frame",50,125+off)
-		text("- Click to shift into a STL line's reference frame",50,125+off)
-		text("- Solid red = STL line",50,140+off)
-		text("- Dotted red = FTL line",50,155+off)
-		text("- Dotted purple = Time travel in stationary reference frame",50,170+off)
-		text("- Magenta = Stationary reference frame (default)",50,185+off)
-		text("- you may need to press shift twice for it to work.",50,200+off)
-		text("- Hold 'q' to keep space line on screen",50,215+off)
-		text("- yellow/brown/orange = speed of light, C",50,230+off)
-		text("- Scroll to zoom in or out",50,245+off)
-		text("- Press 'r' with an object hovered to rename it,",50,260+off)
+		for (let i = 0; i < creditText.length; i++) {
+			if (creditText[i]==null) continue;
+			text(creditText[i],50,45+off+i*15);
+		}
 	}
 	textAlign(CENTER)
 
@@ -232,18 +253,21 @@ function draw() {
 
 
 		//C Lines
-	drawingContext.setLineDash([6, 12]);
-	strokeWeight(2);
-	stroke(173, 112, 31);
+	drawingContext.setLineDash([12, 8]);
+	
+
+
 	let a=TransformToScreen(0,0);
 	let b=TransformToScreen(1000*scale,1000*scale);
 	let c=TransformToScreen(-1000*scale,1000*scale);
+	strokeWeight(1);
+	stroke(173, 112, 31);
 	line(a.x,a.y,b.x,b.y)
 	line(a.x,a.y,c.x,c.y)
-
-	stroke(0);
-	line(0,center.y,center.x*2,center.y);
+	stroke(100)
 	line(center.x,0,center.x,center.y*2);
+	line(0,center.y,center.x*2,center.y);
+
 	drawingContext.setLineDash([6, 12]);
 
 
@@ -270,6 +294,20 @@ function draw() {
 		stroke(255,0,130)
 		line(a_.x,0,a_.x,a_.y)
 
+	} else if (Held('Shift')) {
+		drawingContext.setLineDash([]);
+		let start_ = TransformToWorld(mouseX,mouseY);
+		let a_ = TransformToScreen(start_.x,start_.y);
+		strokeWeight(1)
+		stroke(173, 112, 31);
+		let t0=TransformToScreen(1000*scale+start_.x,1000*scale+start_.y);
+		let t1=TransformToScreen(-1000*scale+start_.x,1000*scale+start_.y);
+		line(a_.x,a_.y,t0.x,t0.y)
+		line(a_.x,a_.y,t1.x,t1.y)
+		stroke(0,255,0)
+		line(0,a_.y,adjWindowWidth,a_.y)
+		stroke(255,0,130)
+		line(a_.x,0,a_.x,a_.y)
 	}
 	drawingContext.setLineDash([]);
 
