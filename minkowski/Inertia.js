@@ -1,8 +1,11 @@
 class Inertia {
-	constructor(position=0,time=0,velocity=0,len=200,ftl=false,defName="%s3c") {
+	constructor(position=0,time=0,velocity=0,len=200,ftl=false,defName="%s3c",p2=1049129,t2=0) {
 		this.v = velocity
 		this.p = position; //stationary frame
 		this.t = time; //stationary frame
+		this.p2 = p2;
+		this.t2 = t2;
+		this.hasEndPos = p2!=1049129;
 		this.len=len;
 
 		this.breaksCausality = abs(this.v)>=1;
@@ -24,15 +27,17 @@ class Inertia {
 			this.y0 = this.t;
 			this.x1 = this.p+this.v
 			this.y1 = this.t+1;
+			this.x2 = this.p2;
+			this.t2 = this.t2;
 		} else {
 			this.x0 = this.p;
 			this.y0 = this.t;
 			this.x1 = this.p+this.v
 			this.y1 = this.t+1;
+			this.x2 = this.p2;
+			this.t2 = this.t2;
 			this.AdjustReferenceFrame(ReferenceFrame);
 		}
-
-
 	}
 
 	GetLorentz(ref=ReferenceFrame) {
@@ -48,6 +53,11 @@ class Inertia {
 		this.ly0 = this.y0;
 		this.lx1 = this.x1;
 		this.ly1 = this.y1;
+		if (this.hasEndPos) {
+			this.lx2 = this.x2;
+			this.ly2 = this.y2;
+		}
+
 		let p0pre = this.p;
 		let t0pre = this.t;
 		let p1pre = this.p + this.v;
@@ -67,6 +77,13 @@ class Inertia {
 		this.y0=t0post;
 		this.x1=p1post;
 		this.y1=t1post;
+
+		if (this.hasEndPos) {
+			let p2post = gamma * (this.p2 - ref.v * this.t2);
+			let t2post = gamma * (this.t2 - ref.v * this.p2);
+			this.x2=p2post;
+			this.y2=t2post;
+		}
 
 		this.display = Parse(this.name,this);
 	}

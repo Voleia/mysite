@@ -154,9 +154,13 @@ function draw() {
 		let val = vals[i];
 		let direction;
 		let a;
+		let a2 = null;
 		let angle;
 		if (adjustTime >= adjustMaxTime) {
 			a = TransformToScreen(val.x0,val.y0).Subtract(refA);
+			if (val.hasEndPos) {
+				a2 = TransformToScreen(val.x2,val.y2).Subtract(refA);
+			}
 			let b = TransformToScreen(val.x1,val.y1).Subtract(refA);
 			direction = new Vec(b.x-a.x,b.y-a.y).Normalize();
 			angle = atan2(direction.y,direction.x);
@@ -233,7 +237,13 @@ function draw() {
 			fill(0,130,130)
 			point(a.x,a.y);
 		} else {
-			line(a.x,a.y,end.x,end.y);
+			if (a2!=null) {
+				line(a.x,a.y,a2.x,a2.y);
+				strokeWeight(5)
+				rect(a2.x-1,a2.y-1,3,3);
+			} else {
+				line(a.x,a.y,end.x,end.y);
+			}
 			strokeWeight(20);
 			point(a.x,a.y);
 		}
@@ -380,7 +390,7 @@ function mouseReleased() {
 			length=-1;
 		}
 
-		let val = new Inertia(selectStart.x,selectStart.y,v,length,timeTravel);
+		let val = new Inertia(selectStart.x,selectStart.y,v,length,timeTravel,"%s3c",selectEnd.x,selectEnd.y);
 		if (val.len!=-1 && !val.breaksCausality && !val.timeTravel) {
 			val.len/=val.GetLorentz();
 		}
